@@ -19,7 +19,7 @@ Dim Gdv As Double
 Dim Gdn As String
 Gdv = 0
 Dim Gtv As Variant
-Dim Gtn as String
+Dim Gtn As String
 Gtv = 0
 
 'create variable for counting all new rows that are being created for sub totals. set to 2 to avoid headers
@@ -96,7 +96,7 @@ For Each ws In Worksheets
                 'if Op value is 0, then set yearly and percent change values to whatever the close value is and make cell green
                 ws.Cells(count, 10).Value = Cp
                 ws.Cells(count, 10).Interior.ColorIndex = 4
-                ws.Cells(count, 11).Value = Cp
+                ws.Cells(count, 11).Value = "NA"
 
             End If
 
@@ -104,21 +104,21 @@ For Each ws In Worksheets
             ws.Cells(count, 12).Value = Application.Sum(ws.Range("G" & Ol & ":G" & Cl))
 
             'get the greatest total % increase value and ticker
-            If ws.Cells(count, 11).Value > Giv Then
-                Giv=ws.Cells(count, 11).Value
-                Gin=ws.Cells(count,9).Value
+            If ws.Cells(count, 11).Value > Giv And ws.Cells(count, 11).Value <> "NA" Then
+                Giv = ws.Cells(count, 11).Value
+                Gin = ws.Cells(count, 9).Value
             End If
 
             'get the greatest total % decrease value and ticker
-            If ws.Cells(count, 11).Value < Gdv Then
-                Gdv=ws.Cells(count, 11).Value
-                Gdn=ws.Cells(count,9).Value
+            If ws.Cells(count, 11).Value < Gdv And ws.Cells(count, 11).Value <> "NA" Then
+                Gdv = ws.Cells(count, 11).Value
+                Gdn = ws.Cells(count, 9).Value
             End If
 
             'get the greatest total volume ticker and value
             If ws.Cells(count, 12).Value > Gtv Then
-                Gtv=ws.Cells(count, 12).Value
-                Gtn=ws.Cells(count,9).Value
+                Gtv = ws.Cells(count, 12).Value
+                Gtn = ws.Cells(count, 9).Value
             End If
 
             'update counter by one so it starts one row down for the new ticker
@@ -136,19 +136,19 @@ For Each ws In Worksheets
     count = 2
 
     'add the greatest increase value and ticker
-    ws.Cells(2,17).Value = Giv
+    ws.Cells(2, 17).Value = Giv
     Giv = 0
-    ws.Cells(2,16).Value = Gin
+    ws.Cells(2, 16).Value = Gin
 
     'add the greatest decrease value and ticker
-    ws.Cells(3,17).Value = Gdv
+    ws.Cells(3, 17).Value = Gdv
     Gdv = 0
-    ws.Cells(3,16).Value = Gdn
+    ws.Cells(3, 16).Value = Gdn
 
     'add the greatest decrease value and ticker
-    ws.Cells(4,17).Value = Gtv
+    ws.Cells(4, 17).Value = Gtv
     Gtv = 0
-    ws.Cells(4,16).Value = Gtn
+    ws.Cells(4, 16).Value = Gtn
 
 Next ws
 
